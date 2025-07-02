@@ -1,0 +1,19 @@
+.about {
+  height: 100vh;
+  width: 100%;
+}
+@media (max-width: 576px) {
+  .about {
+    margin-top: 70px;
+    margin-bottom: 70px;
+  }
+}
+.about p {
+  text-align: justify;
+  text-justify: inter-word;
+}
+.about h1 {
+  display: inline-block;
+  border-bottom: 2px solid rgba(240, 0, 0, 0.87);
+  padding: 5px;
+}

@@ -1,0 +1,58 @@
+.notes{
+  min-height: 100vh;
+  max-height: auto;
+  width: 100%;
+  position: relative;
+}
+@media (max-width: 576px) {
+  .notes {
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+}
+.notes-input{
+  border: none;
+  outline: none;
+}
+.notes-input-div{
+  /* border: 1px solid black; */
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 5px;
+}
+#textarea{
+  display: none;
+}
+.note-cards{
+  border: 1px solid black;
+}
+.card-p{
+  text-align: justify;
+  text-justify: inter-word;
+}.card-icon{
+  font-size: 18px;
+  cursor: pointer;
+}
+.del{
+  color: rgba(240, 0, 0, 0.87);
+}
+.card-icon-head{
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.card-icon-head:hover{
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 5px;
+}
+.notes-update{
+  position: fixed;
+  top: 80px;
+  left: 0px;
+  width: 100%;
+  height: 80vh;
+  background-color: blanchedalmond;
+  display: none;
+  z-index: 1000;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+.update{
+  height: 100%;
+}
