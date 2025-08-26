@@ -1,86 +1,158 @@
-import React from 'react'
+import React, { useState } from 'react';
 import './signup.css';
-import HeadingComp from './HeadingComp';
-import  { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import {useDispatch} from "react-redux";
-import {authActions } from "../../store/store";
+import { authApi } from "../../utils/axiosConfig";
+import { useNavigate, Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { authActions } from "../../store/store";
+import { ToastContainer, toast } from 'react-toastify';
 
 function Signin() {
-  const histroy = useNavigate();
-const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [input, setInput] = useState({ username: "", password: "" });
+  const [loading, setLoading] = useState(false);
 
-  const [input, setinput] = useState({ email: "", password: "" });
-  const change = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setinput({ ...input, [name]: value });
+    setInput({ ...input, [name]: value });
   };
 
-  const submit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!input.username.trim() || !input.password.trim()) {
+      toast.error("Username and password are required");
+      return;
+    }
+
+    setLoading(true);
     try {
-      const res = await axios.post("http://localhost:5000/api/v1/signin", input);
+      const res = await authApi.post("/signin", input);
 
-      // .then((res) => {
-      //   sessionStorage.setItem("id", res.data._id)
-      // });
-      // histroy("/notes")
-      console.log("Login response:", res.data);
-
-      if (res.data._id) {
-        sessionStorage.setItem("id", res.data._id);
+      if (res.data.token) {
+        toast.success("Welcome back! 🎉");
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("id", res.data.user.id);
         dispatch(authActions.login());
-        histroy("/notes");
+        setTimeout(() => {
+          navigate("/notes");
+        }, 1000);
       } else {
-        alert(res.data.message || "Login failed.");
+        toast.error(res.data.message || "Login failed");
       }
     } catch (error) {
-      console.error("Error during registration:", error);
-      const msg = error.response?.data?.message;
-    if (msg) {
-      alert(msg); // ⚠️ Show message from backend: email not found / wrong password
-    } else {
-      alert("Something went wrong. Try again.");
-    }
-    console.error("Login error:", error);
+      console.error("Login error:", error);
+      
+      if (error.response) {
+        const status = error.response.status;
+        const message = error.response.data?.message;
+        
+        if (status === 400) {
+          toast.error(message || "Invalid input data");
+        } else if (status === 401) {
+          toast.error("Invalid username or password");
+        } else if (status === 500) {
+          toast.error("Server error. Please try again later.");
+        } else {
+          toast.error(message || "Login failed");
+        }
+      } else if (error.request) {
+        toast.error("Network error. Please check your connection.");
+      } else {
+        toast.error("Something went wrong. Please try again.");
+      }
+    } finally {
+      setLoading(false);
     }
   };
+
   return (
-    <div><div className='signup'>
-    <div className="container-fluid">
-      <div className="row">
-         {/* Right Heading Section */}
-         <div className="col-lg-4 d-lg-flex justify-content-center align-items-center min-vh-100 col-left d-none">
-          <HeadingComp first="Sign" second="In" />
-        </div>
-        
-        {/* Left Form Section w-100 w-lg-75*/}
-        <div className="col-lg-8 d-flex justify-content-center align-items-center min-vh-100">
-          <div className="d-flex flex-column  w-100 w-lg-75 p-3">
-            <input
-              type="email"
-              name="email"
-              placeholder="Enter your email"
-              className="p-2 my-2 signup-input"
-              value={input.email}
-              onChange={change}
-            />
-            <input
-              type="password"
-              name="password"
-              placeholder="Enter your Password"
-              className="p-2 my-2 signup-input"
-              value={input.password}
-              onChange={change}
-            />
-            <button className="btn-signup p-2 mt-3" onClick={submit}>Sign In</button>
+    <>
+      <ToastContainer />
+      <div className="auth-container">
+        <div className="auth-wrapper">
+          {/* Side Panel */}
+          <div className="auth-side-panel">
+            <div className="side-content">
+              <h2>Welcome Back!</h2>
+              <p>Sign in to access your notes and continue your productivity journey</p>
+              <div className="feature-list">
+                <div className="feature-item">
+                  <span className="feature-icon">📝</span>
+                  <span>Access Your Notes</span>
+                </div>
+                <div className="feature-item">
+                  <span className="feature-icon">🔄</span>
+                  <span>Sync Across Devices</span>
+                </div>
+                <div className="feature-item">
+                  <span className="feature-icon">🎯</span>
+                  <span>Stay Organized</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="auth-card">
+            {/* Header */}
+            <div className="auth-header">
+              <h1 className="auth-title">Sign In</h1>
+              <p className="auth-subtitle">Welcome back to NotesApp</p>
+            </div>
+
+            {/* Form */}
+            <form className="auth-form" onSubmit={handleSubmit}>
+              <div className="input-group">
+                <label className="input-label">Username</label>
+                <input
+                  type="text"
+                  name="username"
+                  placeholder="Enter your username"
+                  className="auth-input"
+                  value={input.username}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="input-group">
+                <label className="input-label">Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Enter your password"
+                  className="auth-input"
+                  value={input.password}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <button 
+                type="submit" 
+                className="auth-button"
+                disabled={loading}
+              >
+                {loading ? (
+                  <>
+                    <span className="loading-spinner"></span>
+                    Signing In...
+                  </>
+                ) : (
+                  "Sign In"
+                )}
+              </button>
+            </form>
+
+            {/* Footer */}
+            <div className="auth-footer">
+              <p>Don't have an account? <Link to="/signup" className="auth-link">Create Account</Link></p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div></div>
-  )
+    </>
+  );
 }
 
-export default Signin
+export default Signin;

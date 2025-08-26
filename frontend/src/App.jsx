@@ -8,19 +8,22 @@ import Signin from "./componants/signup/Signin.jsx";
 import Notes from "./componants/notes/Notes.jsx";
 import { useDispatch } from "react-redux";
 import { authActions } from "./store/store.js";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-    const id = sessionStorage.getItem("id");
-    if (id) {
+    const id = localStorage.getItem("id");
+    const token = localStorage.getItem("token");
+    if (id && token) {
       dispatch(authActions.login());
     }
-  }, []);
+  }, [dispatch]);
   return (
     <div>
+            <ToastContainer />
       <Router>
         <Navbar />
         <Routes>

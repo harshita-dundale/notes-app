@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../utils/axiosConfig";
 import { ToastContainer, toast } from "react-toastify";
 
 export const Update = ({ display, update, refresh }) => {
@@ -9,18 +9,7 @@ export const Update = ({ display, update, refresh }) => {
     body: "",
   });
 
-  // useEffect(() => {
-  //   if (update?.title && update?.body) {
-   
-  //     setInputs({
-  //       title: update.title,
-  //       body: update.body,
-  //     });
-  //   }
-  // }, [update]);
-
   useEffect(() => {
-    console.log("🔁 update data:", update);
     if (update) {
       setInputs({
         title: update.title || "",
@@ -32,26 +21,53 @@ export const Update = ({ display, update, refresh }) => {
   const change = (e) => {
     const { name, value } = e.target;
     setInputs((prev) => ({ ...prev, [name]: value }));
-    //setInputs({ ...inputs, [name]: value });
   };
 
-  const submit = async () =>{
-
+  const submit = async () => {
     if (!update || !update.id) {
       toast.error("Update data is missing");
       return;
     }
 
+    if (!inputs.title.trim() || !inputs.body.trim()) {
+      toast.error("Title and body are required");
+      return;
+    }
+
+    const userId = localStorage.getItem("id");
+    if (!userId) {
+      toast.error("Please login first");
+      return;
+    }
+
     try {
-      await axios.put(`http://localhost:5000/api/v2/updateTask/${update.id}`, inputs)
-      .then((res) => {console.log(res);
-        if (refresh) refresh();
-      })
-      console.log(inputs);
+      const userId = localStorage.getItem("id");
+      await api.put(`/updateTask/${update.id}`, { ...inputs, userId });
+      
+      if (refresh) refresh();
       display("none");
+      toast.success("Task updated successfully");
     } catch (error) {
       console.error("Update error:", error);
-      toast.error("Update failed");
+      
+      if (error.response) {
+        const status = error.response.status;
+        const message = error.response.data?.message;
+        
+        if (status === 400) {
+          toast.error(message || "Invalid task data");
+        } else if (status === 401) {
+          toast.error("Please login again");
+          localStorage.removeItem("token");
+          localStorage.removeItem("id");
+        } else if (status === 404) {
+          toast.error("Task not found");
+        } else {
+          toast.error(message || "Update failed");
+        }
+      } else {
+        toast.error("Network error. Please try again.");
+      }
     }
   }
 

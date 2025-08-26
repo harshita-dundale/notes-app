@@ -1,58 +1,293 @@
-.notes{
+.notes {
   min-height: 100vh;
-  max-height: auto;
-  width: 100%;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  padding: 120px 0 2rem;
   position: relative;
 }
-@media (max-width: 576px) {
-  .notes {
-    margin-top: 40px;
-    margin-bottom: 40px;
-  }
+
+.notes-main {
+  margin-bottom: 3rem;
 }
-.notes-input{
+
+.notes-input-div {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.notes-input {
+  background: rgba(255, 255, 255, 0.9);
   border: none;
   outline: none;
-}
-.notes-input-div{
-  /* border: 1px solid black; */
-  border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 5px;
-}
-#textarea{
-  display: none;
-}
-.note-cards{
-  border: 1px solid black;
-}
-.card-p{
-  text-align: justify;
-  text-justify: inter-word;
-}.card-icon{
-  font-size: 18px;
-  cursor: pointer;
-}
-.del{
-  color: rgba(240, 0, 0, 0.87);
-}
-.card-icon-head{
-  cursor: pointer;
-  transition: all 0.3s;
-}
-.card-icon-head:hover{
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 5px;
-}
-.notes-update{
-  position: fixed;
-  top: 80px;
-  left: 0px;
+  border-radius: 15px;
+  padding: 1rem 1.5rem;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
   width: 100%;
-  height: 80vh;
-  background-color: blanchedalmond;
-  display: none;
-  z-index: 1000;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
-.update{
+
+.notes-input:focus {
+  background: white;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+  transform: translateY(-2px);
+}
+
+.notes-input::placeholder {
+  color: #666;
+  font-weight: 500;
+}
+
+#textarea {
+  display: none;
+  min-height: 120px;
+  resize: vertical;
+}
+
+.home-btn {
+  background: linear-gradient(45deg, #f59e0b, #d97706);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 30px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(245, 158, 11, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.home-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+}
+
+.note-cards {
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
   height: 100%;
+  backdrop-filter: blur(10px);
+}
+
+.note-cards:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.note-cards h5 {
+  color: #2d3748;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+.card-p {
+  text-align: justify;
+  max-height: 120px;
+  overflow-y: auto;
+  word-wrap: break-word;
+  word-break: break-word;
+  color: #4a5568;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.card-p::-webkit-scrollbar {
+  width: 4px;
+}
+
+.card-p::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.card-p::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 10px;
+}
+
+.card-icon {
+  font-size: 16px;
+  margin-right: 8px;
+}
+
+.card-icon-head {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: 25px;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 0 5px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.card-icon-head:hover {
+  background: #10b981;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+}
+
+.card-icon-head.text-danger {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+.card-icon-head.text-danger:hover {
+  background: #ef4444;
+  color: white;
+  box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3);
+}
+.notes-update {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  display: none;
+  z-index: 1001;
+  align-items: center;
+  justify-content: center;
+}
+
+.notes-update[style*="block"] {
+  display: flex !important;
+}
+
+.update {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.update h1 {
+  color: #2d3748;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  text-align: center;
+  padding-top: 1rem;
+}
+
+.update textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.update .btn {
+  border-radius: 25px;
+  padding: 10px 25px;
+  font-weight: 600;
+  margin: 5px 10px;
+  transition: all 0.3s ease;
+}
+
+.update .btn-dark {
+  background: linear-gradient(45deg, #10b981, #059669);
+  border: none;
+}
+
+.update .btn-dark:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+}
+
+.update .btn-danger {
+  background: linear-gradient(45deg, #ef4444, #dc2626);
+  border: none;
+}
+
+.update .btn-danger:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .notes {
+    padding: 140px 1rem 2rem;
+  }
+  
+  .notes-input-div {
+    margin: 0 1rem;
+    padding: 1.5rem;
+  }
+  
+  .note-cards {
+    margin: 0 0.5rem;
+  }
+  
+  .update {
+    width: 95%;
+    padding: 1.5rem;
+  }
+  
+  .update h1 {
+    font-size: 1.5rem;
+    padding-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .update textarea {
+    min-height: 100px;
+  }
+}
+
+@media (max-width: 576px) {
+  .notes {
+    padding: 120px 0.5rem 2rem;
+  }
+  
+  .card-icon-head {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+    margin: 2px;
+  }
+  
+  .home-btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+  
+  .update {
+    width: 98%;
+    padding: 1rem;
+    margin: 1rem;
+  }
+  
+  .update h1 {
+    font-size: 1.3rem;
+    padding-top: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .update textarea {
+    min-height: 80px;
+  }
+  
+  .update .btn {
+    padding: 8px 20px;
+    margin: 3px 5px;
+    font-size: 0.9rem;
+  }
 }

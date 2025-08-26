@@ -7,7 +7,7 @@ function NoteCards({ title, body, id , delid, display, toBeUpdate, updateId}) {
     <div className="p-3 note-cards">
       <div className="card-p">
         <h5>{title}</h5>
-        <p>{body.slice(0, 77)}...</p>
+        <p>{body}</p>
       </div>
       <div className="d-flex justify-content-around ">
       <div className="d-flex justify-content-center align-items-center card-icon-head p-1" onClick={() => {display("block") 

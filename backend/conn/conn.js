@@ -1,14 +1,15 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const connectDB = async () => {
   try {
-    await mongoose.connect("mongodb+srv://harshuprajapati14:harshu1122@cluster0.qmsvcjh.mongodb.net/test?retryWrites=true&w=majority");
-//"mongodb+srv://harshuprajapati14:<db_password>@cluster0.qmsvcjh.mongodb.net/"
-    console.log("✅ MongoDB connected");
-  } catch (error) {
-    console.error("❌ MongoDB connection failed:", error.message);
-    process.exit(1); // stop server if DB fails
+    const mongoURI = process.env.MONGODB_URI || "mongodb://localhost:27017/todoapp";
+    await mongoose.connect(mongoURI);
+    console.log(" ✅ MongoDB connected successfully");
+  } catch (err) {
+    console.error("❌ MongoDB connection failed:", err.message);
+    process.exit(1);
   }
 };
 
-module.exports = connectDB;
+export default connectDB;
+
