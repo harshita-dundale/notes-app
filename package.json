@@ -1,0 +1,16 @@
+{
+  "name": "todo-app-mern",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "cd backend && npm start",
+    "build": "cd backend && npm install",
+    "dev": "cd backend && npm run dev",
+    "install-backend": "cd backend && npm install",
+    "install-frontend": "cd frontend && npm install",
+    "install-all": "npm run install-backend && npm run install-frontend"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "MERN Stack Todo Application"
+}
