@@ -110,8 +110,10 @@
 
 /* How It Works Section */
 .how-it-works {
-  background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%);
-  color: white;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  color: #2d3748;
+  /* background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%); */
+  /* color: white; */
   padding: 100px 0;
 }
 

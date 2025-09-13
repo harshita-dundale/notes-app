@@ -241,7 +241,7 @@ function Notes() {
         </div>
       </div>
       <div className="notes-update" id="notes-update">
-        <div className="container update">
+        <div className="container d-flex justify-content-center mt-5">
           <Update display={dis} update={updateData} refresh={fetchTasks} />
         </div>
       </div>

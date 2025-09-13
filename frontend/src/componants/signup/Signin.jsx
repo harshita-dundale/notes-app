@@ -69,7 +69,7 @@ function Signin() {
   return (
     <>
       <ToastContainer />
-      <div className="auth-container">
+      <div className="auth-container mt-5">
         <div className="auth-wrapper">
           {/* Side Panel */}
           <div className="auth-side-panel">

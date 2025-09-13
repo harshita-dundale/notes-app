@@ -33,7 +33,7 @@ function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="features container py-5">
+      <section className="features container-fluid py-5">
         <h2 className="text-center mb-4" data-aos="fade-up">Why Use NotesApp?</h2>
         <div className="row text-center">
           <div className="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="100">

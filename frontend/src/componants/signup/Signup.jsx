@@ -69,7 +69,7 @@ function Signup() {
   return (
     <>
       <ToastContainer />
-      <div className="auth-container">
+      <div className="auth-container mt-5">
         <div className="auth-wrapper">
           <div className="auth-card">
             {/* Header */}
@@ -133,12 +133,13 @@ function Signup() {
                   "Create Account"
                 )}
               </button>
+              <div className="auth-footer">
+              <p>Already have an account? <Link to="/signin" className="auth-link">Sign In</Link></p>
+            </div>
             </form>
 
             {/* Footer */}
-            <div className="auth-footer">
-              <p>Already have an account? <Link to="/signin" className="auth-link">Sign In</Link></p>
-            </div>
+            
           </div>
 
           {/* Side Panel */}

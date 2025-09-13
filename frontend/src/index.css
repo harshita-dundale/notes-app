@@ -1,4 +1,4 @@
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -14,13 +14,12 @@ body {
   overflow-x: hidden;
 }
 
-/* Smooth scrolling */
 html {
   scroll-behavior: smooth;
 }
 
 /* Custom scrollbar */
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 8px;
 }
 
@@ -38,27 +37,24 @@ html {
 }
 
 /* Remove default button styles */
-button {
+/* button {
   border: none;
   background: none;
   cursor: pointer;
   font-family: inherit;
-}
+} 
 
-/* Link styles */
 a {
   text-decoration: none;
   color: inherit;
   transition: all 0.3s ease;
 }
 
-/* Focus styles for accessibility */
 *:focus {
   outline: 2px solid #10b981;
   outline-offset: 2px;
 }
 
-/* Utility classes */
 .text-gradient {
   background: linear-gradient(45deg, #10b981, #059669);
   -webkit-background-clip: text;
@@ -72,7 +68,6 @@ a {
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Animation classes */
 .fade-in {
   animation: fadeIn 0.6s ease-in;
 }
@@ -88,14 +83,11 @@ a {
   }
 }
 
-/* Responsive typography */
 @media (max-width: 768px) {
   body {
     font-size: 14px;
   }
 }
-
-/* Loading animation */
 .loading {
   display: inline-block;
   width: 20px;
@@ -110,4 +102,4 @@ a {
   to {
     transform: rotate(360deg);
   }
-}
+} */

@@ -72,31 +72,55 @@ export const Update = ({ display, update, refresh }) => {
   }
 
   return (
-    <div className="p-5 d-flex justify-content-center align-items-start flex-column update">
-       <ToastContainer />
-      <h1>Update Your task</h1>
-      <input
-        name="title"
-        type="text"
-        className="notes-input my-4 p-3 w-100"
-        value={inputs.title || ""}
-        onChange={change}
-      />
-      <textarea
-        name="body"
-        id=""
-        className="notes-input w-100 p-3"
-        value={inputs.body || ""}
-        onChange={change}
-      />
-      <div className="">
-        <button className="btn btn-dark my-4" onClick={submit }>UPDATE</button>
-        <button
-          className="btn btn-danger my-4 mx-3"
-          onClick={() => {display("none")}}
-        >
-          Close
-        </button>
+    <div className="update ">
+      <ToastContainer />
+      
+      {/* Header */}
+      <div className="text-center mb-4">
+        <h1 className="update-title">Update Your Task</h1>
+      </div>
+
+      {/* Form */}
+      <div className="update-form">
+        <div className="mb-3">
+          <label className="form-label fw-semibold">Title</label>
+          <input
+            name="title"
+            type="text"
+            className="form-control notes-input"
+            placeholder="Enter task title"
+            value={inputs.title || ""}
+            onChange={change}
+          />
+        </div>
+        
+        <div className="mb-4">
+          <label className="form-label fw-semibold">Description</label>
+          <textarea
+            name="body"
+            className="form-control notes-input"
+            rows="4"
+            placeholder="Enter task description"
+            value={inputs.body || ""}
+            onChange={change}
+          />
+        </div>
+        
+        {/* Buttons */}
+        <div className="d-flex justify-content-center gap-3">
+          <button 
+            className="btn btn-dark px-4 py-2 fw-semibold" 
+            onClick={submit}
+          >
+            UPDATE
+          </button>
+          <button
+            className="btn btn-danger px-4 py-2 fw-semibold"
+            onClick={() => display("none")}
+          >
+            CLOSE
+          </button>
+        </div>
       </div>
     </div>
   );
